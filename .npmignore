@@ -4,6 +4,7 @@ src
 .eslintignore
 .prettierignore
 *.d.ts
+*.map
 CONTRIBUTING.md
 README.md
 SECURITY.md

@@ -5,8 +5,8 @@
   "main": "dist/app.js",
   "preferGlobal": true,
   "bin": {
-    "fiu": "node -r dotenv/config dist/app.js",
-    "fdmg-imgix-upload": "node -r dotenv/config dist/app.js"
+    "fiu": "dist/app.js",
+    "fdmg-imgix-upload": "dist/app.js"
   },
   "publishConfig": {
     "access": "public"

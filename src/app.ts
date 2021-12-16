@@ -7,6 +7,7 @@ import yargs from "yargs";
 import zlib from "zlib";
 import mime from "mime-types";
 import AWS from "aws-sdk";
+import path from "path";
 
 declare let process: any;
 type Hashes = {
@@ -172,7 +173,11 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
  */
 async function init(props: { imageMapLocation: string; imagesFolder: string }) {
   let ticks = 0;
-  const files = await getFiles(props.imagesFolder);
+  const files = await getFiles(
+    props.imagesFolder.indexOf(".") === 0
+      ? `${path.join(process.cwd(), props.imagesFolder)}`
+      : props.imagesFolder
+  );
   if (debug) {
     console.log(files);
   }
@@ -187,13 +192,6 @@ async function init(props: { imageMapLocation: string; imagesFolder: string }) {
     try {
       const sha1 = sha1FileSync(file.absolutePath);
       const ext = fileExtension(file.absolutePath);
-      if (debug) {
-        console.log(
-          file.absolutePath.replace(process.cwd().replace(/\\/g, "/"), ""),
-          "=",
-          `${sha1}.${ext}`
-        );
-      }
       hashes[
         file.absolutePath.replace(process.cwd().replace(/\\/g, "/"), "")
       ] = `${sha1}.${ext}`;
@@ -201,6 +199,9 @@ async function init(props: { imageMapLocation: string; imagesFolder: string }) {
     } catch (e) {
       console.error(e);
     }
+  }
+  if (debug) {
+    console.log(hashes);
   }
   if (argv.dryRun) {
     console.log(
