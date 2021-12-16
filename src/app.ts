@@ -84,8 +84,12 @@ console.log(`Cache-control: ${CacheControl}`);
 console.log(`Dry-run: ${argv.dryRun}`);
 const environment = argv.environment || process.env.ENVIRONMENT;
 console.log(`Environment: ${environment}`);
-const imagesFolder =
+let imagesFolder =
   argv.imagesFolder || process.env.IMGIX_UPLOAD_RELATIVE_IMAGE_FOLDER_LOCATION;
+imagesFolder =
+  imagesFolder.indexOf(".") === 0
+    ? `${path.join(process.cwd(), imagesFolder)}`
+    : imagesFolder;
 console.log(`Images folder: ${imagesFolder}`);
 const imageMapLocation =
   argv.outputImageMapLocation ||
@@ -173,11 +177,7 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
  */
 async function init(props: { imageMapLocation: string; imagesFolder: string }) {
   let ticks = 0;
-  const files = await getFiles(
-    props.imagesFolder.indexOf(".") === 0
-      ? `${path.join(process.cwd(), props.imagesFolder)}`
-      : props.imagesFolder
-  );
+  const files = await getFiles(props.imagesFolder);
   if (debug) {
     console.log(files);
   }
