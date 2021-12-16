@@ -16,6 +16,7 @@
     "build:prod": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
     "dry-run": "npm run start -- --dry-run",
+    "dogfood": "dotenv fiu -- -v -i ./images",
     "help": "node -r dotenv/config dist/app.js --help",
     "start": "node -r dotenv/config dist/app.js -o ./imageMap.json -i ./images",
     "release:fdmg": "node modifyPackageJson.js -s @fdmg",
@@ -28,6 +29,7 @@
   "author": "Willem Liu",
   "license": "ISC",
   "devDependencies": {
+    "@fdmg/imgix-upload": "^0.0.4",
     "@types/glob": "^7.2.0",
     "@types/mime-types": "^2.1.1",
     "@types/progress": "^2.0.5",
@@ -35,6 +37,7 @@
     "assert": "^2.0.0",
     "aws-sdk": "^2.1046.0",
     "dotenv": "^10.0.0",
+    "dotenv-cli": "^4.1.1",
     "edit-json-file": "^1.6.2",
     "file-extension": "^4.0.5",
     "glob": "^7.2.0",
