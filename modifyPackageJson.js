@@ -24,4 +24,5 @@ const argv = yargs(process.argv.slice(2)).options({
 let file = editJsonFile(`${__dirname}/package.json`);
 
 file.set("name", `${argv.scope}/imgix-upload`);
+file.set("version", process.env.RELEASE_VERSION || "v0.0.1");
 file.save();

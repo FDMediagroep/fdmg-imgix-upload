@@ -32,6 +32,8 @@ jobs:
       run: npm ci
     - name: Build
       run: npm run build:prod --if-present
+    - name: Update version and organisation scope
+      run: npm run release:fdmg 
     - name: Publish NPMJS @fdmg
       if: contains(github.ref, 'canary') == false
       run: npm publish
@@ -44,7 +46,7 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{secrets.NODE_AUTH_TOKEN}}
       continue-on-error: true
-    - name: Use specific package.json organisation scope for GHP
+    - name: Update version and organisation scope
       run: npm run release:fdmediagroep 
     - name: Publish NPMJS @fdmediagroep
       if: contains(github.ref, 'canary') == false

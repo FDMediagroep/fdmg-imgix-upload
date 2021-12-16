@@ -33,3 +33,7 @@ Upload images to IMGIX and output a JSON-file with mappings to the hashed filena
    - IMGIX_UPLOAD_PROD_S3_DISTRIBUTION_ID
    - IMGIX_UPLOAD_S3_DATA_CACHE_CONTROL
 1. Run `npm start`
+
+## Windows
+
+This CLI will not work under Windows as it doesn't know how to execute the JS-binaries by default. In order to make this work under Windows you can enable WSL (Windows Subsystem for Linux) and run it in a Linux shell.
