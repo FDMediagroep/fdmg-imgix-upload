@@ -1,5 +1,11 @@
 .github
+analyzer
 src
+.eslintignore
+.prettierignore
 *.d.ts
+CONTRIBUTING.md
+README.md
+SECURITY.md
 tsconfig.json
 webpack.config.js
