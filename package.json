@@ -4,8 +4,8 @@
   "description": "Command-line tool to upload images to the FDMG IMGIX S3 Bucket",
   "main": "dist/app.js",
   "bin": {
-    "fiu": "dist/app.js",
-    "fdmg-imgix-upload": "dist/app.js"
+    "fiu": "node -r dotenv/config dist/app.js",
+    "fdmg-imgix-upload": "node -r dotenv/config dist/app.js"
   },
   "publishConfig": {
     "access": "public"
