@@ -28,8 +28,3 @@ jobs:
       run: sudo npm ci
     - name: Build
       run: npm run build:prod
-    - name: Code coverage reporting
-      uses: coverallsapp/github-action@master
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        path-to-lcov: ./js-coverage/lcov.info
