@@ -6,6 +6,7 @@ src
 *.d.ts
 *.map
 CONTRIBUTING.md
+modifyPackageJson.js
 README.md
 SECURITY.md
 tsconfig.json

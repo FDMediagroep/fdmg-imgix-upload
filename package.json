@@ -5,8 +5,8 @@
   "main": "dist/app.js",
   "preferGlobal": true,
   "bin": {
-    "fiu": "dist/app.js",
-    "fdmg-imgix-upload": "dist/app.js"
+    "fiu": "cli.js",
+    "fdmg-imgix-upload": "cli.js"
   },
   "publishConfig": {
     "access": "public"
