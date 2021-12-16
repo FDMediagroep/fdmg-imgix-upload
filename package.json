@@ -1,0 +1,46 @@
+{
+  "name": "fdmg-imgix-upload",
+  "version": "0.0.1",
+  "description": "Command-line tool to upload images to the FDMG IMGIX S3 Bucket",
+  "main": "dist/app.js",
+  "bin": {
+    "fiu": "dist/app.js",
+    "fdmg-imgix-upload": "dist/app.js"
+  },
+  "scripts": {
+    "build": "npm run build:dev",
+    "build:prod": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
+    "dry-run": "npm run start -- --dry-run",
+    "help": "node -r dotenv/config dist/app.js --help",
+    "start": "node -r dotenv/config dist/app.js -o ./imageMap.json -i ./images",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch": "npm run watch:dev",
+    "watch:dev": "webpack --mode=development -w",
+    "watch:prod": "webpack --mode=production -w"
+  },
+  "author": "Willem Liu",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/mime-types": "^2.1.1",
+    "@types/progress": "^2.0.5",
+    "@types/yargs": "^17.0.7",
+    "assert": "^2.0.0",
+    "aws-sdk": "^2.1046.0",
+    "dotenv": "^10.0.0",
+    "file-extension": "^4.0.5",
+    "glob": "^7.2.0",
+    "mime-types": "^2.1.34",
+    "progress": "^2.0.3",
+    "sha1-file": "^3.0.0",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^10.4.0",
+    "typescript": "^4.5.4",
+    "webpack": "^5.65.0",
+    "webpack-bundle-analyzer": "^4.5.0",
+    "webpack-cli": "^4.9.1",
+    "yargs": "^17.3.0",
+    "zlib": "^1.0.5"
+  }
+}

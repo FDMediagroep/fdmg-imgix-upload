@@ -1,0 +1,6 @@
+.env
+analyzer
+dist
+images
+node_modules
+imageMap.json
