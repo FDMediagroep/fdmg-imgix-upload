@@ -68,6 +68,12 @@ const argv: any = yargs(process.argv.slice(2)).options({
     requiresArg: true,
     required: false,
   },
+  stripImagesFolder: {
+    alias: "s",
+    description: "Strip images folder from image map path as well",
+    requiresArg: false,
+    required: false,
+  },
   verbose: {
     alias: "v",
     description: "Debug",
@@ -81,7 +87,7 @@ console.log(`S3 Bucket: ${Bucket}`);
 const CacheControl =
   argv.cacheControl || process.env.IMGIX_UPLOAD_S3_DATA_CACHE_CONTROL;
 console.log(`Cache-control: ${CacheControl}`);
-console.log(`Dry-run: ${argv.dryRun}`);
+console.log(`Dry-run: ${!!argv.dryRun}`);
 const environment = argv.environment || process.env.ENVIRONMENT;
 console.log(`Environment: ${environment}`);
 let imagesFolder =
@@ -90,6 +96,7 @@ imagesFolder =
   imagesFolder.indexOf(".") === 0
     ? `${path.join(process.cwd(), imagesFolder)}`
     : imagesFolder;
+imagesFolder = imagesFolder.replace(/\\/g, "/");
 console.log(`Images folder: ${imagesFolder}`);
 const imageMapLocation =
   argv.outputImageMapLocation ||
@@ -97,6 +104,8 @@ const imageMapLocation =
 console.log(`Image map output location: ${imageMapLocation}`);
 const region = argv.region || process.env.IMGIX_UPLOAD_AWS_DEFAULT_REGION;
 console.log(`AWS Region: ${region}`);
+const stripImagesFolder = argv.stripImagesFolder;
+console.log(`Strip images folder: ${stripImagesFolder}`);
 const debug = argv.verbose;
 
 if (debug) {
@@ -175,9 +184,13 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
  * - `imageMapLocation`: relative output path for the image map
  * - `imagesFolder`: relative path to the root images folder
  */
-async function init(props: { imageMapLocation: string; imagesFolder: string }) {
+async function init(props: {
+  imageMapLocation: string;
+  imagesFolder: string;
+  stripImagesFolder: boolean;
+}) {
   let ticks = 0;
-  const files = await getFiles(props.imagesFolder);
+  let files = await getFiles(props.imagesFolder);
   if (debug) {
     console.log(files);
   }
@@ -192,10 +205,18 @@ async function init(props: { imageMapLocation: string; imagesFolder: string }) {
     try {
       const sha1 = sha1FileSync(file.absolutePath);
       const ext = fileExtension(file.absolutePath);
-      hashes[
-        file.absolutePath.replace(process.cwd().replace(/\\/g, "/"), "")
-      ] = `${sha1}.${ext}`;
-      uploadToS3(file.absolutePath, `${sha1}.${ext}`);
+      let fileLocation = file.absolutePath.replace(
+        process.cwd().replace(/\\/g, "/"),
+        ""
+      );
+      if (props.stripImagesFolder) {
+        fileLocation = fileLocation.replace(
+          argv.imagesFolder.replace(".", ""),
+          ""
+        );
+      }
+      hashes[fileLocation] = `${sha1}.${ext}`;
+      await uploadToS3(file.absolutePath, `${sha1}.${ext}`);
     } catch (e) {
       console.error(e);
     }
@@ -227,4 +248,5 @@ async function init(props: { imageMapLocation: string; imagesFolder: string }) {
 init({
   imageMapLocation,
   imagesFolder,
+  stripImagesFolder,
 });
