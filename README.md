@@ -1,3 +1,5 @@
+[![CodeQL](https://github.com/FDMediagroep/fdmg-imgix-upload/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/FDMediagroep/fdmg-imgix-upload/actions/workflows/codeql-analysis.yml)
+
 # IMGIX Upload
 
 Upload images to IMGIX and output a JSON-file with mappings to the hashed filenames on IMGIX.
