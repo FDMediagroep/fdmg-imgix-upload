@@ -27,7 +27,7 @@ const argv: any = yargs(process.argv.slice(2)).options({
   },
   cacheControl: {
     alias: "c",
-    description: "cache-control header",
+    description: "cache-control header e.g.: max-age=15768000",
     requiresArg: true,
     required: false,
   },
