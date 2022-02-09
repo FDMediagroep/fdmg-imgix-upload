@@ -81,10 +81,13 @@ function getBucket(environment: string) {
   switch (environment) {
     case "development":
       result = process.env.IMGIX_UPLOAD_DEV_S3_BUCKET;
+      break;
     case "acceptance":
       result = process.env.IMGIX_UPLOAD_ACC_S3_BUCKET;
+      break;
     case "production":
-      result = process.env.IMGIX_UPLOAD_DEV_S3_BUCKET;
+      result = process.env.IMGIX_UPLOAD_PROD_S3_BUCKET;
+      break;
   }
   return result;
 }
