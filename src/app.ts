@@ -76,14 +76,27 @@ const argv: any = yargs(process.argv.slice(2)).options({
   },
 }).argv;
 
-const Bucket = argv.bucket || process.env.IMGIX_UPLOAD_ACC_S3_BUCKET;
-console.log(`S3 Bucket: ${Bucket}`);
+function getBucket(environment: string) {
+  let result = "";
+  switch (environment) {
+    case "development":
+      result = process.env.IMGIX_UPLOAD_DEV_S3_BUCKET;
+    case "acceptance":
+      result = process.env.IMGIX_UPLOAD_ACC_S3_BUCKET;
+    case "production":
+      result = process.env.IMGIX_UPLOAD_DEV_S3_BUCKET;
+  }
+  return result;
+}
+
 const CacheControl =
   argv.cacheControl || process.env.IMGIX_UPLOAD_S3_DATA_CACHE_CONTROL;
 console.log(`Cache-control: ${CacheControl}`);
 console.log(`Dry-run: ${!!argv.dryRun}`);
 const environment = argv.environment || process.env.ENVIRONMENT;
 console.log(`Environment: ${environment}`);
+const Bucket = argv.bucket || getBucket(environment);
+console.log(`S3 Bucket: ${Bucket}`);
 let imagesFolder =
   argv.imagesFolder || process.env.IMGIX_UPLOAD_RELATIVE_IMAGE_FOLDER_LOCATION;
 imagesFolder =
@@ -114,20 +127,16 @@ const credentials = {
   accessKeyId: process.env.IMGIX_UPLOAD_DEV_S3_API_KEY,
   secretAccessKey: process.env.IMGIX_UPLOAD_DEV_S3_SECRET_KEY,
 };
-let distributionId = process.env.IMGIX_UPLOAD_DEV_S3_DISTRIBUTION_ID;
 switch (environment) {
   case "production":
-    distributionId = process.env.IMGIX_UPLOAD_PROD_S3_DISTRIBUTION_ID;
     credentials.accessKeyId = process.env.IMGIX_UPLOAD_PROD_S3_API_KEY;
     credentials.secretAccessKey = process.env.IMGIX_UPLOAD_PROD_S3_SECRET_KEY;
     break;
   case "acceptance":
-    distributionId = process.env.IMGIX_UPLOAD_ACC_S3_DISTRIBUTION_ID;
     credentials.accessKeyId = process.env.IMGIX_UPLOAD_ACC_S3_API_KEY;
     credentials.secretAccessKey = process.env.IMGIX_UPLOAD_ACC_S3_SECRET_KEY;
     break;
   case "development":
-    distributionId = process.env.IMGIX_UPLOAD_DEV_S3_DISTRIBUTION_ID;
     credentials.accessKeyId = process.env.IMGIX_UPLOAD_DEV_S3_API_KEY;
     credentials.secretAccessKey = process.env.IMGIX_UPLOAD_DEV_S3_SECRET_KEY;
     break;
@@ -154,14 +163,16 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
     mime.contentType(absolutePath.replace(/\//g, "")) || undefined;
   if (!argv.dryRun) {
     try {
-      console.log({
-        Bucket,
-        CacheControl,
-        Key: hashedFileName,
-        ContentType,
-        ContentEncoding: "gzip",
-        ACL: "public-read",
-      });
+      if (debug) {
+        console.log({
+          Bucket,
+          CacheControl,
+          Key: hashedFileName,
+          ContentType,
+          ContentEncoding: "gzip",
+          ACL: "public-read",
+        });
+      }
       // Put object to S3.
       await s3
         .upload({

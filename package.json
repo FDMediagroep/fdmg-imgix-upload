@@ -1,6 +1,6 @@
 {
   "name": "@fdmg/imgix-upload",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Command-line tool to upload images to the FDMG IMGIX S3 Bucket",
   "main": "dist/app.js",
   "preferGlobal": true,
@@ -20,7 +20,7 @@
     "dogfood2": "dotenv fiu -- -v -s -i ./public/images",
     "help": "node -r dotenv/config dist/app.js --help",
     "start": "node -r dotenv/config dist/app.js -o ./imageMap.json -i ./images -s",
-    "start2": "node -r dotenv/config dist/app.js -o ./imageMap.json -i ./public/images -s",
+    "start2": "node -r dotenv/config dist/app.js -e development -o ./imageMap.json -i ./public/images -s",
     "release:fdmg": "node modifyPackageJson.js -s @fdmg",
     "release:fdmediagroep": "node modifyPackageJson.js -s @fdmediagroep",
     "test": "echo \"Error: no test specified\" && exit 1",
