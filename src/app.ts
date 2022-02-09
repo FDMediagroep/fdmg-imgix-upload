@@ -21,14 +21,12 @@ type Hashes = {
 const argv: any = yargs(process.argv.slice(2)).options({
   bucket: {
     alias: "b",
-    default: "fd-dev-public-images",
     description: "S3 bucket",
     requiresArg: true,
     required: false,
   },
   cacheControl: {
     alias: "c",
-    default: "max-age=15768000",
     description: "cache-control header",
     requiresArg: true,
     required: false,
@@ -42,29 +40,25 @@ const argv: any = yargs(process.argv.slice(2)).options({
   },
   environment: {
     alias: "e",
-    default: "development",
     description: "Environment: development | acceptance | production",
     requiresArg: true,
     required: false,
   },
   imagesFolder: {
     alias: "i",
-    default: "./public",
-    description: "folder holding all the images",
+    description: "folder holding all the images e.g.: ./public",
     requiresArg: true,
     required: true,
   },
   outputImageMapLocation: {
     alias: "o",
-    default: "./imageMap.json",
-    description: "output image map file name",
+    description: "output image map file name e.g.: ./imageMap.json",
     requiresArg: true,
     required: true,
   },
   region: {
     alias: "r",
-    default: "eu-west-1",
-    description: "AWS Region",
+    description: "AWS Region e.g: eu-west-1",
     requiresArg: true,
     required: false,
   },
@@ -160,6 +154,14 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
     mime.contentType(absolutePath.replace(/\//g, "")) || undefined;
   if (!argv.dryRun) {
     try {
+      console.log({
+        Bucket,
+        CacheControl,
+        Key: hashedFileName,
+        ContentType,
+        ContentEncoding: "gzip",
+        ACL: "public-read",
+      });
       // Put object to S3.
       await s3
         .upload({
