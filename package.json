@@ -37,7 +37,7 @@
     "@types/progress": "^2.0.5",
     "@types/yargs": "^17.0.10",
     "assert": "^2.0.0",
-    "aws-sdk": "^2.1098.0",
+    "aws-sdk": "^2.1099.0",
     "dotenv": "^16.0.0",
     "dotenv-cli": "^5.0.0",
     "edit-json-file": "^1.7.0",
