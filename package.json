@@ -35,7 +35,7 @@
     "@types/glob": "^8.0.0",
     "@types/mime-types": "^2.1.1",
     "@types/progress": "^2.0.5",
-    "@types/yargs": "^17.0.19",
+    "@types/yargs": "^17.0.22",
     "assert": "^2.0.0",
     "aws-sdk": "^2.1289.0",
     "dotenv": "^16.0.3",
