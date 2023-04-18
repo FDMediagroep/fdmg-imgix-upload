@@ -6,7 +6,8 @@ import fileExtension from "file-extension";
 import yargs from "yargs";
 import zlib from "zlib";
 import mime from "mime-types";
-import AWS from "aws-sdk";
+import { Upload } from "@aws-sdk/lib-storage";
+import { S3 } from "@aws-sdk/client-s3";
 import path from "path";
 
 declare let process: any;
@@ -148,7 +149,7 @@ switch (environment) {
 /**
  * Create S3 instance.
  */
-const s3 = new AWS.S3({
+const s3 = new S3({
   region: process.env.IMGIX_UPLOAD_AWS_DEFAULT_REGION,
   credentials,
 });
@@ -177,17 +178,20 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
         });
       }
       // Put object to S3.
-      await s3
-        .upload({
-          Bucket,
-          Body: compressedFile,
-          CacheControl,
-          Key: hashedFileName,
-          ContentType,
-          ContentEncoding: "gzip",
-          ACL: "public-read",
-        })
-        .promise();
+      await new Upload({
+        client: s3,
+
+        params: {
+            Bucket,
+            Body: compressedFile,
+            CacheControl,
+            Key: hashedFileName,
+            ContentType,
+            ContentEncoding: "gzip",
+            ACL: "public-read",
+          }
+      })
+        .done();
     } catch (e) {
       console.error(e);
     }
