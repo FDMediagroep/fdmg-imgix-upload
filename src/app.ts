@@ -150,7 +150,7 @@ switch (environment) {
  * Create S3 instance.
  */
 const s3 = new S3({
-  region: process.env.IMGIX_UPLOAD_AWS_DEFAULT_REGION,
+  region,
   credentials,
 });
 
@@ -182,16 +182,15 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
         client: s3,
 
         params: {
-            Bucket,
-            Body: compressedFile,
-            CacheControl,
-            Key: hashedFileName,
-            ContentType,
-            ContentEncoding: "gzip",
-            ACL: "public-read",
-          }
-      })
-        .done();
+          Bucket,
+          Body: compressedFile,
+          CacheControl,
+          Key: hashedFileName,
+          ContentType,
+          ContentEncoding: "gzip",
+          ACL: "public-read",
+        },
+      }).done();
     } catch (e) {
       console.error(e);
     }
