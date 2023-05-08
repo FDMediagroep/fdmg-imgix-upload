@@ -4,6 +4,10 @@
   "description": "Command-line tool to upload images to the FDMG IMGIX S3 Bucket",
   "main": "dist/app.js",
   "preferGlobal": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/FDMediagroep/fdmg-imgix-upload"
+  },
   "bin": {
     "fiu": "cli.js",
     "fdmg-imgix-upload": "cli.js"
