@@ -1,6 +1,6 @@
 {
   "name": "@fdmg/imgix-upload",
-  "version": "0.0.22",
+  "version": "0.0.23",
   "description": "Command-line tool to upload images to the FDMG IMGIX S3 Bucket",
   "main": "dist/app.js",
   "preferGlobal": true,
@@ -35,8 +35,8 @@
   "author": "Willem Liu",
   "license": "ISC",
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.370.0",
-    "@aws-sdk/lib-storage": "^3.370.0",
+    "@aws-sdk/client-s3": "^3.383.0",
+    "@aws-sdk/lib-storage": "^3.383.0",
     "@fdmg/imgix-upload": "^0.0.21",
     "@types/glob": "^8.1.0",
     "@types/mime-types": "^2.1.1",
