@@ -1,6 +1,6 @@
 {
   "name": "@fdmg/imgix-upload",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Command-line tool to upload images to the FDMG IMGIX S3 Bucket",
   "main": "dist/app.js",
   "preferGlobal": true,
