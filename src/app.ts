@@ -244,9 +244,7 @@ async function init(props: {
     console.log(hashes);
   }
   if (argv.dryRun) {
-    console.log(
-      `Dry-run: files not uploaded to S3 ${process.env.IMGIX_UPLOAD_DEV_S3_BUCKET_URL}`
-    );
+    console.log(`Dry-run: files not uploaded to S3 ${Bucket}`);
   }
 
   if (!argv.dryRun) {
