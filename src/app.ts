@@ -7,7 +7,7 @@ import yargs from "yargs";
 import zlib from "zlib";
 import mime from "mime-types";
 import { Upload } from "@aws-sdk/lib-storage";
-import { S3 } from "@aws-sdk/client-s3";
+import { ObjectCannedACL, S3 } from "@aws-sdk/client-s3";
 import path from "path";
 
 declare let process: any;
@@ -20,6 +20,12 @@ type Hashes = {
  * Run `node <app> --help` to list all the options.
  */
 const argv: any = yargs(process.argv.slice(2)).options({
+  acl: {
+    description:
+      "access control lists e.g.: authenticated-read | aws-exec-read | bucket-owner-full-control | bucket-owner-read | private | public-read | public-read-write | none. Default: public-read",
+    requiresArg: true,
+    required: false,
+  },
   bucket: {
     alias: "b",
     description: "S3 bucket",
@@ -93,6 +99,13 @@ function getBucket(environment: string) {
   return result;
 }
 
+let ACL: ObjectCannedACL | undefined = "public-read";
+if (argv.acl && argv.acl !== "none") {
+  ACL = argv.acl;
+} else if (argv.acl === "none") {
+  ACL = undefined;
+}
+console.log(`ACL: ${ACL}`);
 const CacheControl =
   argv.cacheControl || process.env.IMGIX_UPLOAD_S3_DATA_CACHE_CONTROL;
 console.log(`Cache-control: ${CacheControl}`);
@@ -174,7 +187,7 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
           Key: hashedFileName,
           ContentType,
           ContentEncoding: "gzip",
-          ACL: "public-read",
+          ACL,
         });
       }
       // Put object to S3.
@@ -188,7 +201,7 @@ async function uploadToS3(absolutePath: string, hashedFileName: string) {
           Key: hashedFileName,
           ContentType,
           ContentEncoding: "gzip",
-          ACL: "public-read",
+          ACL,
         },
       }).done();
     } catch (e) {
