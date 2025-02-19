@@ -35,7 +35,7 @@
   "author": "Willem Liu",
   "license": "ISC",
   "devDependencies": {
-    "@aws-sdk/client-s3": "^3.738.0",
+    "@aws-sdk/client-s3": "^3.750.0",
     "@aws-sdk/lib-storage": "^3.744.0",
     "@fdmg/imgix-upload": "^0.0.36",
     "@types/glob": "^8.1.0",
