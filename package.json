@@ -45,7 +45,7 @@
     "@types/yargs": "^17.0.33",
     "assert": "^2.1.0",
     "dotenv": "^17.2.3",
-    "dotenv-cli": "^10.0.0",
+    "dotenv-cli": "^11.0.0",
     "edit-json-file": "^1.8.1",
     "file-extension": "^4.0.5",
     "glob": "^11.0.3",
