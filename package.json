@@ -48,7 +48,7 @@
     "dotenv-cli": "^11.0.0",
     "edit-json-file": "^1.8.1",
     "file-extension": "^4.0.5",
-    "glob": "^13.0.3",
+    "glob": "^13.0.6",
     "mime-types": "^3.0.2",
     "progress": "^2.0.3",
     "sha1-file": "^3.0.0",
