@@ -20,8 +20,8 @@
     "build:prod": "webpack --mode=production",
     "build:dev": "webpack --mode=development",
     "dry-run": "npm run start -- --dry-run -s -v",
-    "dogfood": "dotenv fiu -- -v -s -i ./images -o ./imageMap.json",
-    "dogfood2": "dotenv fiu -- -v -s -i ./public/images -o ./imageMap.json",
+    "dogfood": "dotenv node cli.js -- -v -s -i ./images -o ./imageMap.json",
+    "dogfood2": "dotenv node cli.js -- -v -s -i ./public/images -o ./imageMap.json",
     "help": "node -r dotenv/config dist/app.js --help",
     "start": "node -r dotenv/config dist/app.js -e development -o ./imageMap.json -i ./images -s -v",
     "start2": "node -r dotenv/config dist/app.js -e acceptance -o ./imageMap.json -i ./public/images -s -v",
@@ -37,7 +37,6 @@
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.1024.0",
     "@aws-sdk/lib-storage": "^3.1045.0",
-    "@fdmg/imgix-upload": "^0.0.48",
     "@types/glob": "^9.0.0",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^25.5.2",
@@ -58,7 +57,7 @@
     "webpack": "^5.105.4",
     "webpack-bundle-analyzer": "^5.3.0",
     "webpack-cli": "^7.0.0",
-    "yargs": "^18.0.0",
+    "yargs": "^17.7.2",
     "zlib": "^1.0.5"
   }
 }
