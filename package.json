@@ -51,7 +51,7 @@
     "mime-types": "^3.0.2",
     "progress": "^2.0.3",
     "sha1-file": "^3.0.0",
-    "ts-loader": "^9.5.4",
+    "ts-loader": "^9.5.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.9.3",
     "webpack": "^5.105.4",
