@@ -48,6 +48,13 @@ module.exports = {
         include: [path.resolve(__dirname, "src")],
         loader: "ts-loader",
       },
+      {
+        test: /[\\/]node_modules[\\/]yargs[\\/].*\.mjs$/,
+        loader: path.resolve(
+          __dirname,
+          "webpack-loaders/import-meta-url-loader.js"
+        ),
+      },
     ],
   },
 };
