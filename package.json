@@ -28,6 +28,7 @@
     "release:fdmg": "node modifyPackageJson.js -s @fdmg",
     "release:fdmediagroep": "node modifyPackageJson.js -s @fdmediagroep",
     "test": "echo \"Error: no test specified\" && exit 1",
+    "verify:build": "node verifyBuild.js",
     "watch": "npm run watch:dev",
     "watch:dev": "webpack --mode=development -w",
     "watch:prod": "webpack --mode=production -w"

@@ -45,6 +45,8 @@ jobs:
       run: npm ci
     - name: Build
       run: npm run build:prod --if-present
+    - name: Verify build
+      run: npm run verify:build
     - name: Update version and organisation scope
       run: npm run release:fdmg 
     - name: Publish NPMJS @fdmg

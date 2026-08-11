@@ -49,7 +49,7 @@ module.exports = {
         loader: "ts-loader",
       },
       {
-        test: /[\\/]node_modules[\\/]yargs[\\/].*\.mjs$/,
+        test: /[\\/]node_modules[\\/]yargs[\\/].*\.(mjs|js)$/,
         loader: path.resolve(
           __dirname,
           "webpack-loaders/import-meta-url-loader.js"

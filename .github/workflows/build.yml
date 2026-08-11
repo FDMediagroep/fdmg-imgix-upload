@@ -28,3 +28,5 @@ jobs:
       run: sudo npm ci
     - name: Build
       run: npm run build:prod
+    - name: Verify build
+      run: npm run verify:build
