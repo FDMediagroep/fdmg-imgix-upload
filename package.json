@@ -36,7 +36,7 @@
   "license": "ISC",
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.1079.0",
-    "@aws-sdk/lib-storage": "^3.1045.0",
+    "@aws-sdk/lib-storage": "^3.1102.0",
     "@types/glob": "^9.0.0",
     "@types/mime-types": "^3.0.1",
     "@types/node": "^26.1.0",
@@ -54,7 +54,7 @@
     "ts-loader": "^9.5.7",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "webpack": "^5.105.4",
+    "webpack": "^5.109.2",
     "webpack-bundle-analyzer": "^5.3.0",
     "webpack-cli": "^7.2.1",
     "yargs": "^18.0.0",
