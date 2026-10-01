@@ -58,7 +58,7 @@
     "webpack": "^5.111.1",
     "webpack-bundle-analyzer": "^5.4.0",
     "webpack-cli": "^7.2.3",
-    "yargs": "^18.1.0",
+    "yargs": "^18.2.0",
     "zlib": "^1.0.5"
   }
 }
